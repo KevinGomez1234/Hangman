@@ -14,17 +14,18 @@
 		char *randomWord = chooseRandomWord();
 		char *dashedLines;
 		char choice;
-		int sizeOfRandomWord;
+		int sizeOfRandomWord = 0;
 		//tries 
 		int incorrect = -1;
-		int correct;
+		int correct = 0;
 		//1 if correct 0 if incorrect
 		int correctBoolean = 0;
-		//Getting the size of our word
+		printf("%s", randomWord);
 		while(randomWord [sizeOfRandomWord] != '\n')
 		{	
 			sizeOfRandomWord++;
 		}
+
 		//Dashed Lines 
 		dashedLines = (char*) malloc(sizeOfRandomWord * sizeof(char));
 		for(int j=0;j<=sizeOfRandomWord-1;j++)
@@ -150,8 +151,10 @@ void updateHangman(int counter)
 	char *chooseRandomWord()
 	{
 		FILE *fPointer;
+		FILE *wPointer;
 		char randomWord[100];
-		int count,randomNumber;
+		int randomNumber;
+		int count = 0;
 		char *word;
 		srand (time(NULL));
 		fPointer = fopen("Words.txt", "r");
@@ -160,18 +163,21 @@ void updateHangman(int counter)
 		{
 			while(feof(fPointer)==0)
 			{
-				if(fgets(randomWord, 100, fPointer))
+				// if(fgets(randomWord, 100, fPointer))
+				// 	count++;
+				fgets(randomWord, 100, fPointer);
 				count++;
 			}
 		}
 		else
 			printf("Error File Not Found");
+		fclose(fPointer);
 		//Generate a random number in between 0 and number of lines in the file. 
-		randomNumber = rand() % (count+1);
+		randomNumber = rand() % count;
 		//reset buffer
 		fPointer = fopen("Words.txt", "r");
 		//select a random word and store it in the buffer
-		for(int i = 0; i<=randomNumber-1;i++)
+		for(int i = 0; i<=randomNumber;i++)
 		{
 			fgets(randomWord, 100, fPointer);
 		}
@@ -179,6 +185,7 @@ void updateHangman(int counter)
 		word = (char*) malloc(strlen(randomWord)*sizeof(char));
 		//store the word 
 		strcpy(word, randomWord);
+		fclose(fPointer);
 		return word;
 	}
 
