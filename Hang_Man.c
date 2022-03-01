@@ -4,7 +4,6 @@
 #include <ctype.h>
 #include <string.h>
 #include <time.h>
-#include <Windows.h>
 #include <unistd.h>
 
 
