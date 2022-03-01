@@ -1,2 +1,7 @@
 # Hangman
-Hangman command line game written in C. Reads a file called Words.txt and selects random words from the txt file using \n as splitter. 
+Hangman command line game written in C. Reads a file called Words.txt
+---
+#Playing the game
+`$ gcc -c Hang_Man.c`
+`$ gcc Hang_Man.o -o Hangman`
+`$ ./Hangman`
