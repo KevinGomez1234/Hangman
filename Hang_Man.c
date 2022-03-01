@@ -4,6 +4,10 @@
 #include <ctype.h>
 #include <string.h>
 #include <time.h>
+#include <Windows.h>
+#include <unistd.h>
+
+
 
 	void updateHangman();
 	char *chooseRandomWord();
@@ -20,18 +24,17 @@
 		int correct = 0;
 		//1 if correct 0 if incorrect
 		int correctBoolean = 0;
-		printf("%s", randomWord);
 		while(randomWord [sizeOfRandomWord] != '\n')
 		{	
 			sizeOfRandomWord++;
 		}
-
 		//Dashed Lines 
-		dashedLines = (char*) malloc(sizeOfRandomWord * sizeof(char));
-		for(int j=0;j<=sizeOfRandomWord-1;j++)
+		dashedLines = (char*) malloc((sizeOfRandomWord * sizeof(char)) + 1);
+		for(int j=0;j<sizeOfRandomWord;j++)
 		{
 			dashedLines[j] = '_';
 		}
+		dashedLines[sizeOfRandomWord] = '\0';
 		printf("Welcome to Hang Man\n----------------|\n");
 		printf("\n%s\n", &dashedLines[0]);
 		while(incorrect!=7)
@@ -68,11 +71,15 @@
 			{
 				printf("\nThe word was: %s\n", &randomWord[0]);
 				printf("Congratulations, You Have Won Hang Man!\n");
+				sleep(5);
 				break;
 			}
 			if(incorrect==7){
-				printf("\nThe word was: %s\n", &randomWord[0]);
+				printf("\nThe correct word was: %s\n", &randomWord[0]);
+				printf("Better luck next time!");
+				sleep(10);
 			}
+
 		}
 		return 0;
 	}
